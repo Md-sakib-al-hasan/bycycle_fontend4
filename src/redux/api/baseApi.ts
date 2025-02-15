@@ -35,7 +35,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
-  
+   console.log(result);
   if (result?.error?.status) {
     const error = result.error as FetchBaseQueryError;
           const errordata = error.data as TErrorResponse
