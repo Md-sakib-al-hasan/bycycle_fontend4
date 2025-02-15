@@ -3,6 +3,7 @@ import "keen-slider/keen-slider.min.css";
 import { useEffect, useState } from "react";
 import { KeenSliderInstance } from "keen-slider";
 import Card from "../card/Card";
+
 import { TProduct } from "../../types";
 import { useGetAllProductQuery } from "../../redux/features/product/productApi";
 
@@ -10,13 +11,22 @@ const SliderComponent = () => {
   const { data } = useGetAllProductQuery([{ name: "limit", value: 40 }]);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
-    mode: "snap",
-    drag: true,
-    slides: { perView: 4, spacing: 0 },
+    slides: {
+      perView: 4,
+      spacing: 0,
+    },
+    mode: "free",
+    dragSpeed: 0.8,
     breakpoints: {
-      "(max-width: 639px)": { slides: { perView: 1, spacing: 0 } },
-      "(min-width: 640px)": { slides: { perView: 2, spacing: 0 } },
-      "(min-width: 1024px)": { slides: { perView: 4, spacing: 0 } },
+      "(min-width: 640px)": {
+        slides: { perView: 2, spacing: 0 },
+      },
+      "(max-width: 639px)": {
+        slides: { perView: 1, spacing: 0 },
+      },
+      "(min-width: 1024px)": {
+        slides: { perView: 4, spacing: 0 },
+      },
     },
   });
 
@@ -27,21 +37,21 @@ const SliderComponent = () => {
     if (instanceRef.current) {
       setSlider(instanceRef.current);
       instanceRef.current.on("slideChanged", (s) => {
-        setCurrentSlide(s.track.details?.rel ?? 0);
+        if (s.track.details) {
+          setCurrentSlide(s.track.details.rel);
+        }
       });
     }
   }, [instanceRef]);
 
-  // **Autoplay Effect with 20s Delay**
+  // Autoplay Effect
   useEffect(() => {
     if (!slider) return;
-    const autoplay = () => {
+    const interval = setInterval(() => {
       if (slider.track.details) {
-        slider.moveToIdx((slider.track.details.rel + 1) % slider.track.details.slides.length, true);
+        slider.moveToIdx(slider.track.details.rel + 1, true);
       }
-    };
-    const interval = setInterval(autoplay, 2000); 
-
+    }, 4000);
     return () => clearInterval(interval);
   }, [slider]);
 
@@ -65,7 +75,7 @@ const SliderComponent = () => {
 
       {/* Dots Pagination */}
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-        {[...Array(data?.data?.result?.length || 6)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <button
             key={i}
             onClick={() => slider?.moveToIdx(i)}
@@ -79,4 +89,4 @@ const SliderComponent = () => {
   );
 };
 
-export default SliderComponent;
+export default SliderComponent
