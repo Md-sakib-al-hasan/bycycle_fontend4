@@ -1,11 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { TiSocialFacebook } from "react-icons/ti";
-import logo from "../../assets/Logo.png";
 import { IoLogoTwitter } from "react-icons/io5";
 import { IoLogoGoogleplus } from "react-icons/io";
 import { FaLinkedinIn } from "react-icons/fa";
 import Button from "../button/Button";
 import { Link } from "react-router-dom";
+import logoFotere from "/Logo.png";
 
 const categoriesarray = ["Road bikes", "Mountain bikes", "Hybrid bikes", "Cyclocross bikes", "Folding bikes"];
 const navbaritem = [
@@ -33,7 +33,7 @@ const Footer = () => {
     <div className="bg-[#fffbf1]">
        <div className="container grid lg:grid-cols-4 md:grid-cols-2 lg:gap-4 gap-y-8 gap-x-6 py-20">
              <ul className="space-y-4">
-                <li><img src={logo} alt="Logo" /></li>
+                <li><img src={logoFotere} alt="Logo" /></li>
                 <li>Cycling offers quality bicycles with fast delivery and 24x7 support</li>
                 <li className="flex gap-4">
                      <a href="https://www.facebook.com" className="text-gray-600 hover:text-red-500 hover:scale-125" target="_blank" rel="noopener noreferrer">

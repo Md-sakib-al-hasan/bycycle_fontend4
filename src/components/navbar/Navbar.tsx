@@ -1,5 +1,5 @@
 
-import logo from "../../assets/logo.png"
+import logohearder from "/Logo.png"
 import { AiOutlineUser } from "react-icons/ai"
 import { MdOutlineShoppingCart } from "react-icons/md"
 import { IoMenu } from "react-icons/io5"
@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div className="container">
        <nav className="flex md:flex-row flex-col justify-between items-center shadow-sm py-3">
-         <img  src={logo} alt="logo" />
+         <img  src={logohearder} alt="logo" />
          
          <ul className="flex md:gap-8 gap-5">
          <div className="md:hidden relative block group ">
