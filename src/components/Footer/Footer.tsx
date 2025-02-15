@@ -24,8 +24,8 @@ type FormInputs = {
 const Footer = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>();
 
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
-    console.log("Form submitted:", data);
+  const onSubmit: SubmitHandler<FormInputs> = () => {
+   
     // Handle your form submission here, e.g., send the email to your API
   };
 

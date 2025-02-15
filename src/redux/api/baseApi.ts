@@ -53,7 +53,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   }
   if (result?.error?.status === 401) {
     //* Send Refresh
-    const res = await fetch('http://localhost:5000/api/v1/auth/refresh-token', {
+    const res = await fetch( `${import.meta.env.VITE_SERVERDOMAIN}/api/v1/auth/refresh-token`, {
       method: 'POST',
       credentials: 'include',
     });

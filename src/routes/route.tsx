@@ -24,7 +24,7 @@ import PrivateRotue from "../privateRoute/PrivateRotue";
 import EditProfile from "../components/editeProfile/EditeProfile";
 import Profile from "../pages/adminDashboard/component/Profile";
 import Addproduct from "../pages/adminDashboard/component/Addproduct";
-import Protected from "../privateRoute/protected";
+import Protected from "../privateRoute/Protected";
 
 
 

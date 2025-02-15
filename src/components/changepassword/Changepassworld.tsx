@@ -19,7 +19,7 @@ const ChangePassword = () => {
   } = useForm();
 
   const onSubmit = (data:FieldValues) => {
-    console.log("Password Change Data:", data);
+   
     if(data.newPassword !== data.confirmPassword){
           toast.error("Your newPassord and configrmpassword don't match")
           return;

@@ -18,7 +18,7 @@ const userSchema = z.object({
 });
 
 export default function AddUser() {
-  const [sigine, {error}] = useAdduserMutation();
+  const [sigine,] = useAdduserMutation();
   const navigate = useNavigate();
   const {
     register,
@@ -27,10 +27,10 @@ export default function AddUser() {
   } = useForm({
     resolver: zodResolver(userSchema),
   });
-   console.log(error)
+   
   const onSubmit = async (data:FieldValues) => {
     try {
-      console.log(data)
+      
       await sigine(data).unwrap();
       toast.success('sigine in successfully');
       navigate('/admin/user')

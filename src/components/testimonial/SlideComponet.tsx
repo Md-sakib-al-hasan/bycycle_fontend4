@@ -68,6 +68,9 @@ const SliderComponent = () => {
               key={index}
               className={`keen-slider__slide flex items-center justify-center   text-lg font-bold`}
             > 
+            {
+              <div className="hidden">{currentSlide}</div>
+            }
             <div className="flex flex-col justify-center items-center gap-4">
             <div>
             <RiDoubleQuotesR size={55} className="text-red-400" />

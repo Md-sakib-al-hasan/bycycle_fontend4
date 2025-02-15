@@ -37,19 +37,17 @@ const SliderComponent = () => {
     if (instanceRef.current) {
       setSlider(instanceRef.current);
       instanceRef.current.on("slideChanged", (s) => {
-        if (s.track.details) {
-          setCurrentSlide(s.track.details.rel);
-        }
+        setCurrentSlide(s.track.details?.rel ?? 0);
       });
     }
-  }, [instanceRef]);
+  }, [instanceRef.current]); // ✅ Ensure correct dependency to avoid stale state
 
   // Autoplay Effect
   useEffect(() => {
     if (!slider) return;
     const interval = setInterval(() => {
       if (slider.track.details) {
-        slider.moveToIdx(slider.track.details.rel + 1, true);
+        slider.moveToIdx((slider.track.details.rel + 1) % slider.track.details.slides.length, true);
       }
     }, 4000);
     return () => clearInterval(interval);
@@ -75,7 +73,7 @@ const SliderComponent = () => {
 
       {/* Dots Pagination */}
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(data?.data?.result?.length || 6)].map((_, i) => (
           <button
             key={i}
             onClick={() => slider?.moveToIdx(i)}

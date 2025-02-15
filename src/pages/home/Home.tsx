@@ -16,6 +16,7 @@ import { useGetAllProductQuery } from "../../redux/features/product/productApi"
 
 const Home = () => {
    const {data,isLoading} = useGetAllProductQuery([{name:"limit",value:40}])
+   
   return (
     <div className=" w-full space-y-32 ">
        {

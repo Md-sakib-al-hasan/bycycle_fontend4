@@ -17,8 +17,8 @@ const Contact_us = () => {
   const { control, handleSubmit, formState: { errors } } = useForm<IFormInput>();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = () => {
+    
     setIsSubmitted(true);
   };
 
