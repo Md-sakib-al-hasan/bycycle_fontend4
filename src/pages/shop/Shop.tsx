@@ -1,7 +1,7 @@
 import { FaSearch } from "react-icons/fa";
 import Banner from "../../components/banner/Banner";
 import Card from "../../components/card/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { TProduct } from "../../types";
@@ -10,6 +10,8 @@ import ReactLoading from 'react-loading';
 //import imge
 import shopinge from "../../assets/shopbanner.jpg"
 import { useGetAllProductQuery } from "../../redux/features/product/productApi";
+import { useSearchParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const categories = [
   { name: 'All', number: 1457 },
@@ -26,6 +28,7 @@ const categories = [
 
 // [,{name:"searchTerm",value:(searchValue === undefined?"":searchValue)},{name:"limit",value:8},,], { pollingInterval: 10 * 60 * 1000 }
 const Shop = () => {
+  const [ searchParams] = useSearchParams();
     const { register, watch } = useForm();
     const searchValue = watch("search");
     const [size,setSize] = useState("")
@@ -40,8 +43,27 @@ const Shop = () => {
       {name:(sizeconditon?"size":""),value:size},
       {name:"searchTerm",value:(searchValue === undefined?"":searchValue)},
     ])
+
+    const message = searchParams.get("message");
+
+
+
+
+    useEffect(() => {
+      if(message==="PaymentFailed"){
+        toast.error("PaymentCanceled")
+      }
+      if(message==="PaymentSuccessful"){
+        toast.success("The payment is successful")
+      }
+      if(message==="PaymentCanceled"){
+        toast.error("The payment is Failed")
+      }
+  
+    }, [message])
   return (
     <div className="space-y-20 ">
+        <Toaster/>
        {
           isLoading &&       <div className="absolute inset-0  flex items-center justify-center "> <ReactLoading type={"bars"}  color={'red'} /></div>
         }
