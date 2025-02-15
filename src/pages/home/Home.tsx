@@ -11,17 +11,14 @@ import TrendingProduct from "../../components/trendingProducts/TrendingProduct"
 import SliderComponent from "../../components/testimonial/SlideComponet"
 
 import { TProduct } from "../../types"
-import ReactLoading from 'react-loading';
 import { useGetAllProductQuery } from "../../redux/features/product/productApi"
 
 const Home = () => {
-   const {data,isLoading} = useGetAllProductQuery([{name:"limit",value:40}])
+   const {data} = useGetAllProductQuery([{name:"limit",value:40}])
    
   return (
     <div className=" w-full space-y-32 ">
-       {
-                    isLoading &&       <div className="absolute inset-0  flex items-center justify-center "> <ReactLoading type={"bars"}  color={'red'} /></div>
-        }
+    
        {/* Banner  */}
        <section>
           <div className="relative ">
