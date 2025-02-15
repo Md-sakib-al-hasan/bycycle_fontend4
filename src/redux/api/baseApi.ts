@@ -15,7 +15,7 @@ import { TErrorResponse } from '../../types';
 
 
 const baseQuery = fetchBaseQuery({
-  baseUrl:`${import.meta.env.VITE_SERVERDOMAIN}/api/v1`,
+  baseUrl:`https://bycycle-backend4-assiment.vercel.app/api/v1`,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -53,7 +53,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   }
   if (result?.error?.status === 401) {
     //* Send Refresh
-    const res = await fetch( `${import.meta.env.VITE_SERVERDOMAIN}/api/v1/auth/refresh-token`, {
+    const res = await fetch( `https://bycycle-backend4-assiment.vercel.app/api/v1/auth/refresh-token`, {
       method: 'POST',
       credentials: 'include',
     });
