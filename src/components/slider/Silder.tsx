@@ -3,7 +3,6 @@ import "keen-slider/keen-slider.min.css";
 import { useEffect, useState } from "react";
 import { KeenSliderInstance } from "keen-slider";
 import Card from "../card/Card";
-
 import { TProduct } from "../../types";
 import { useGetAllProductQuery } from "../../redux/features/product/productApi";
 
@@ -11,22 +10,13 @@ const SliderComponent = () => {
   const { data } = useGetAllProductQuery([{ name: "limit", value: 40 }]);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     loop: true,
-    slides: {
-      perView: 4,
-      spacing: 0,
-    },
-    mode: "free",
-    dragSpeed: 0.8,
+    mode: "snap",
+    drag: true,
+    slides: { perView: 4, spacing: 0 },
     breakpoints: {
-      "(min-width: 640px)": {
-        slides: { perView: 2, spacing: 0 },
-      },
-      "(max-width: 639px)": {
-        slides: { perView: 1, spacing: 0 },
-      },
-      "(min-width: 1024px)": {
-        slides: { perView: 4, spacing: 0 },
-      },
+      "(max-width: 639px)": { slides: { perView: 1, spacing: 0 } },
+      "(min-width: 640px)": { slides: { perView: 2, spacing: 0 } },
+      "(min-width: 1024px)": { slides: { perView: 4, spacing: 0 } },
     },
   });
 
@@ -40,16 +30,18 @@ const SliderComponent = () => {
         setCurrentSlide(s.track.details?.rel ?? 0);
       });
     }
-  }, [instanceRef.current]); // ✅ Ensure correct dependency to avoid stale state
+  }, [instanceRef]);
 
-  // Autoplay Effect
+  // **Autoplay Effect with 20s Delay**
   useEffect(() => {
     if (!slider) return;
-    const interval = setInterval(() => {
+    const autoplay = () => {
       if (slider.track.details) {
         slider.moveToIdx((slider.track.details.rel + 1) % slider.track.details.slides.length, true);
       }
-    }, 4000);
+    };
+    const interval = setInterval(autoplay, 2000); 
+
     return () => clearInterval(interval);
   }, [slider]);
 
